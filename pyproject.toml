@@ -25,6 +25,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Programming Language :: Python :: 3"
 ]
+include = ["tests/*"]
 
 
 [tool.poetry.dependencies]
@@ -48,6 +49,7 @@ sphinx = "^7.2.6"
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.1"
 pytest-cov = "^4.1.0"
+
 
 [build-system]
 requires = ["poetry-core"]
