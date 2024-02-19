@@ -47,6 +47,7 @@ black = "^24.2.0"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
+matplotlib = "^3.8.3"
 
 [build-system]
 requires = ["poetry-core"]
