@@ -4,5 +4,5 @@ ADD poetry.lock /
 
 WORKDIR /
 
-RUN poetry install
+RUN poetry install -vvv
 RUN poetry run python -c "import torchdecomp"
