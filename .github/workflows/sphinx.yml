@@ -17,10 +17,6 @@ jobs:
         with:
           python-version: 3.11
 
-      - name: Install Dependencies
-        run: |
-          poetry install
-
       - name: Build Documentation
         run: |
           make html
