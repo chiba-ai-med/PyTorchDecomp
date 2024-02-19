@@ -31,12 +31,8 @@ classifiers = [
 python = "^3.11"
 numpy = "^1.26.4"
 torch = "^2.2.0"
-
-
-[tool.poetry.group.test.dependencies]
+matplotlib = "^3.8.3"
 torchvision = "^0.17.0"
-pytest = "^8.0.1"
-pytest-cov = "^4.1.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -47,7 +43,11 @@ black = "^24.2.0"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "^7.2.6"
-matplotlib = "^3.8.3"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.1"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]
