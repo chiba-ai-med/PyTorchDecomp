@@ -1,9 +1,7 @@
-FROM mwalbeck/python-poetry:1-3.12
+FROM continuumio/miniconda3
 
-RUN mkdir my_package &&\
-    cd my_package &&\
-    poetry init &&\
-    poetry add git+https://github.com/chiba-ai-med/PyTorchDecomp.git &&\
-    poetry run python -c 'import torchdecomp'
+RUN python -m venv env
 
-WORKDIR /my_package
+RUN pip install git+https://github.com/chiba-ai-med/PyTorchDecomp.git
+
+RUN python -c 'import torchdecomp'
