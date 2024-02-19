@@ -1,6 +1,9 @@
-FROM continuumio/miniconda3
+FROM mwalbeck/python-poetry:1-3.12
 
-RUN python -m venv env
-RUN pip install git+https://github.com/chiba-ai-med/PyTorchDecomp.git
-RUN pip install pytest
-RUN python -c "import pytest; import importlib.resources; import os; pytest.main([os.path.join(importlib.resources.files('torchdecomp'), 'tests')])"
+RUN apt-get update &&\
+    apt-get install git -y &&\
+    git clone https://github.com/chiba-ai-med/PyTorchDecomp.git &&\
+    cd PyTorchDecomp &&\
+    pip install dist/torchdecomp-0.1.0-py3-none-any.whl &&\
+    pip install pytest-cov &&\
+    pytest --cov=torchdecomp
