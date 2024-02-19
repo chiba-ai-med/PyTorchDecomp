@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "torchdecomp"
+version = "0.1.0"
+description = "A set of matrix and tensor decomposition models implemented as PyTorch classes"
+authors = ["Koki Tsuyuzaki <k.t.the-answer@hotmail.co.jp>"]
+maintainers = ["Koki Tsuyuzaki <k.t.the-answer@hotmail.co.jp>"]
+readme = "README.md"
+repository = "https://github.com/chiba-ai-med/PyTorchDecomp"
+keywords = ["pytorch", "machine learning"]
+license = "MIT"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3"
+]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.4"
+torch = "^2.2.0"
+
+
+[tool.poetry.group.test.dependencies]
+torchvision = "^0.17.0"
+pytest = "^8.0.1"
+pytest-cov = "^4.1.0"
+
+
+[tool.poetry.group.dev.dependencies]
+urllib3 = "<=2.0"
+flake8 = "^7.0.0"
+black = "^24.2.0"
+
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.2.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
