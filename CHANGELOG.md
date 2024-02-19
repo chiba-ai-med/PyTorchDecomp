@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.0.0...v1.1.0) (2024-02-19)
+
+
+### Features
+
+* tests in dist ([c0d8320](https://github.com/chiba-ai-med/PyTorchDecomp/commit/c0d8320d854ae42025c7cf208f195f67ce130121))
+
+
+### Bug Fixes
+
+* *.md ([2770320](https://github.com/chiba-ai-med/PyTorchDecomp/commit/277032005e5d68e716fa17c5f9c9c384a4848271))
+
 ## 1.0.0 (2024-02-19)
 
 
