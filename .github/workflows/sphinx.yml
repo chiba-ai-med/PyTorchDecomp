@@ -1,11 +1,32 @@
-on: [push]
+name: Publish Documentation
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    name: Push Sphinx Pages
     runs-on: ubuntu-latest
     steps:
-    - uses: seanzhengw/sphinx-pages@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        create_readme: true
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Build Documentation
+        run: |
+          make html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
