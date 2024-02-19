@@ -9,5 +9,4 @@ ADD tests /
 
 WORKDIR /
 
-RUN poetry install -vvv
-RUN poetry run python -c "import torchdecomp"
+RUN poetry install -vvv && poetry run python -c 'import torchdecomp'
