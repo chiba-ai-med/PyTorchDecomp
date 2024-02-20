@@ -45,3 +45,4 @@ jobs:
           ghp-import -n -p -f docs/_build/html
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_PAT: ${{ secrets.GHCR_PAT }}
