@@ -41,5 +41,6 @@ jobs:
           make html
 
       - name: Run ghp-import
+        token: $GIT_TOKEN
         run: |
           ghp-import -n -p -f docs/_build/html
