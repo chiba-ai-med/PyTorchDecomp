@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.1.0...v1.2.0) (2024-02-20)
+
+
+### Features
+
+* doc ([3008e26](https://github.com/chiba-ai-med/PyTorchDecomp/commit/3008e26961cfe5d172e8173e5e8bffbce47d0a87))
+* Sphinx ([6338a2b](https://github.com/chiba-ai-med/PyTorchDecomp/commit/6338a2b79e2f3f0af8e71a43fd79d8f63e94627b))
+
 ## [1.1.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.0.0...v1.1.0) (2024-02-19)
 
 
