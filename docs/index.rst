@@ -10,6 +10,7 @@ Welcome to PyTorchDecomp's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   module
    torchdecomp
 
 
