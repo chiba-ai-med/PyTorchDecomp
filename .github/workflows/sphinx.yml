@@ -42,6 +42,6 @@ jobs:
 
       - name: Run ghp-import
         with:
-    github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ghp-import -n -p -f docs/_build/html
