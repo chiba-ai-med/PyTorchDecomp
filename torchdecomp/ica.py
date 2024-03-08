@@ -1,37 +1,41 @@
 import torch
 import torch.nn as nn
 import math
-
+from .helper import _check_torch_tensor
 
 # Rotation Matrix
 class RotationLayer(nn.Module):
     """Rotation Matrix Factorization Layer
 
-    A symmetic matrix X (n times n) is rotated by
-    a rotation matrix A such as XA (n times n).
+    A matrix X (n times m) is rotated by
+    a rotation matrix A such as XA (n times m).
 
     Attributes:
-        size (int): The number of rows of X (n)
+        x (torch.Tensor): A square matrix X (n times m)
 
     Example:
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
-        >>> x = torch.randn(6, 6) # Test datasets
-        >>> rotation_layer = td.RotationLayer(x.size(0)) # Instantiation
+        >>> x = torch.randn(10, 6) # Test datasets
+        >>> rotation_layer = td.RotationLayer(x) # Instantiation
+        >>> x_rotated = rotation_layer(x)
 
     """
-    def __init__(self, size):
+    def __init__(self, x):
         """Initialization function
         """
         super(RotationLayer, self).__init__()
+        _check_torch_tensor(x)
+        size = x.size(1)
         self.mixing_matrix = nn.Parameter(
             torch.randn(size, size))
     
     def forward(self, x):
         """Forward propagation function
         """
-        x = torch.tanh(x @ self.mixing_matrix)
+        x = torch.mm(x, self.mixing_matrix)
+        x = torch.tanh(x)
         return x
 
 
@@ -39,16 +43,18 @@ class RotationLayer(nn.Module):
 class KurtosisICALayer(nn.Module):
     """Kurtosis-based Independent Component Analysis Layer
 
-    Mini-batch data (x) is used.
+    Mini-batch data (x) is supposed to be used.
 
     Example:
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
-        >>> x = torch.randn(6, 6) # Test datasets
-        >>> rotation_layer = td.RotationLayer(x.size(0)) # Instantiation
+        >>> torch.manual_seed(123456)
+        >>> x = torch.randn(10, 6) # Test datasets
+        >>> rotation_layer = td.RotationLayer(x) # Instantiation
+        >>> x_rotated = rotation_layer(x)
         >>> loss = td.KurtosisICALayer()
-        >>> loss(rotation_layer)
+        >>> loss(x_rotated)
 
     """
     def __init__(self):
@@ -70,14 +76,17 @@ class KurtosisICALayer(nn.Module):
 class NegentropyICALayer(nn.Module):
     """Negentropy-based Independent Component Analysis Layer
 
-    Mini-batch data (x) is used.
+    Mini-batch data (x) is supposed to be used.
 
     Example:
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(10, 6) # Test datasets
-        >>> negentropy_ica_layer = td.NegentropyICALayer(x) # Instantiation
+        >>> rotation_layer = td.RotationLayer(x) # Instantiation
+        >>> x_rotated = rotation_layer(x)
+        >>> loss = td.NegentropyICALayer() # Instantiation
+        >>> loss(x_rotated)
 
     """
     def __init__(self):
@@ -98,6 +107,8 @@ class NegentropyICALayer(nn.Module):
 
 # Deep Deterministic Independent Component Analysis
 class _GramMatrixLayer(nn.Module):
+    """An internal class used in DDICALayer
+    """
     def __init__(self, sigma):
         """Initialization function
         """
@@ -114,6 +125,8 @@ class _GramMatrixLayer(nn.Module):
 
 
 class _EigenValsLayer(nn.Module):
+    """An internal class used in DDICALayer
+    """
     def __init__(self):
         """Initialization function
         """
@@ -126,6 +139,8 @@ class _EigenValsLayer(nn.Module):
 
 
 class _EntropyLayer(nn.Module):
+    """An internal class used in DDICALayer
+    """
     def __init__(self, alpha):
         """Initialization function
         """
@@ -143,6 +158,8 @@ class _EntropyLayer(nn.Module):
 
 
 class _HadamardProdLayer(nn.Module):
+    """An internal class used in DDICALayer
+    """
     def __init__(self):
         """Initialization function
         """
@@ -158,24 +175,26 @@ class DDICALayer(nn.Module):
     """Deep Deterministic Independent Component Analysis-based
     Independent Component Analysis Layer
 
-    Mini-batch data (x) is used.
+    Mini-batch data (x) is supposed to be used.
 
     Example:
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
-        >>> x = torch.randn(6, 6) # Test datasets
-        >>> rotation_layer = td.DDICALayer(x.size(0)) # Instantiation
+        >>> x = torch.randn(10, 6) # Test datasets
+        >>> loss = td.DDICALayer(x) # Instantiation
 
     Note:
        This model is very initial-value sensitive.
        If the iteration is not proceeded, re-run sometimes.
 
     """
-    def __init__(self, sigma, alpha, size):
+    def __init__(self, x, sigma, alpha):
         """Initialization function
         """
         super(DDICALayer, self).__init__()
+        _check_torch_tensor(x)
+        size = x.size(1)
         self.mixing_matrix = nn.Parameter(
             torch.rand(size, size, dtype=torch.float32))
         self.sigma = nn.Parameter(torch.tensor(sigma, dtype=torch.float32))

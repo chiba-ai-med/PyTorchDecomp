@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from .helper import _check_torch_tensor, _check_symmetric_matrix
 
 
 class CholeskyLayer(nn.Module):
@@ -9,7 +10,7 @@ class CholeskyLayer(nn.Module):
     the product of L (n times n) and L^T (n times n).
 
     Attributes:
-        size (int): The size of a symmetric matrix (n)
+        x (torch.Tensor): A symmetric matrix X (n times n)
 
     Example:
         >>> import torchdecomp as td
@@ -17,15 +18,16 @@ class CholeskyLayer(nn.Module):
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(6, 6) # Test datasets
         >>> x = torch.mm(x, x.t()) # Symmetalization
-        >>> cholesky_layer = td.CholeskyLayer(x.size()) # Instantiation
+        >>> cholesky_layer = td.CholeskyLayer(x) # Instantiation
 
     """
-    def __init__(self, size):
+    def __init__(self, x):
         """Initialization function
         """
         super(CholeskyLayer, self).__init__()
-        if size[0] != size[1]:
-            raise ValueError("CholeskyLayer supports square matrices only.")
+        _check_torch_tensor(x)
+        _check_symmetric_matrix(x)
+        size = x.size()
         L = torch.tril(torch.randn(size))
         # Set diagonal elements as positive values
         for i in range(min(size)):

@@ -8,18 +8,31 @@ from torchvision.transforms.v2 import functional as F
 
 
 # Helper functions
-def is_symmetric_matrix(x):
-    if len(x) != len(x[0]):
-        check1 = False
-    else:
-        check1 = True
-    
-    if all(x[i][j] == x[j][i] for i in range(len(x)) for j in range(len(x))):
-        check2 = True
-    else:
-        check2 = False
-    
-    return check1 & check2
+def _check_dimension(size, n_components):
+    """An internal function used only in the torchdecomp module
+    """
+    assert size >= n_components, 'Specify n_components as a smaller value'
+
+
+def _check_torch_tensor(x):
+    """An internal function used only in the torchdecomp module
+    """
+    assert isinstance(x, torch.Tensor), 'Specify torch.Tensor as input'
+
+
+def _check_square_matrix(x):
+    """An internal function used only in the torchdecomp module
+    """
+    size = x.size()
+    assert size[0] == size[1], 'Specify input as a square matrix'
+
+
+def _check_symmetric_matrix(x):
+    """An internal function used only in the torchdecomp module
+    """
+    check1 = len(x) == len(x[0])
+    check2 = all(x[i][j] == x[j][i] for i in range(len(x)) for j in range(len(x)))
+    assert (check1 & check2), 'Specify input as a symmetric matrix'
 
 
 def create_dummy_matrix(class_vector):

@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from .helper import _check_torch_tensor, _check_symmetric_matrix, _check_dimension
 
 
 class SymRecLayer(nn.Module):
@@ -10,7 +11,7 @@ class SymRecLayer(nn.Module):
     and U^T (k times n).
 
     Attributes:
-        size (int): The size of a symmetric matrix (n)
+        x (torch.Tensor): A symmetric matrix X (n times n)
         n_components (int): The number of lower dimensions (k)
 
     Example:
@@ -19,13 +20,17 @@ class SymRecLayer(nn.Module):
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(6, 6) # Test datasets
         >>> x = torch.mm(x, x.t()) # Symmetalization
-        >>> symrec_layer = td.SymRecLayer(x.size(0), 3) # Instantiation
+        >>> symrec_layer = td.SymRecLayer(x, 3) # Instantiation
 
     """
-    def __init__(self, size, n_components):
+    def __init__(self, x, n_components):
         """Initialization function
         """
         super(SymRecLayer, self).__init__()
+        _check_torch_tensor(x)
+        _check_symmetric_matrix(x)
+        size = x.size(0)
+        _check_dimension(size, n_components)
         U = torch.nn.init.orthogonal_(torch.randn(size, n_components), gain=1)
         Sigma = torch.diag(torch.sort(
             torch.randn(n_components)**2, descending=True).values)

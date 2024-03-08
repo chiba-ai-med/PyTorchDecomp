@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from .helper import _check_torch_tensor, _check_dimension
 
 
 class NMFLayer(nn.Module):
@@ -9,7 +10,7 @@ class NMFLayer(nn.Module):
     the product of W (n times k) and H (k times m).
 
     Attributes:
-        size (int): The size of X (n times m)
+        x (torch.Tensor): A non-negative matrix X (n times m)
         n_components (int): The number of lower dimensions (k)
         l1_lambda_w (float): L1 regularization parameter for W
         l1_lambda_h (float): L1 regularization parameter for H
@@ -25,11 +26,11 @@ class NMFLayer(nn.Module):
         >>> import torch
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(10, 6) # Test datasets
-        >>> nmf_layer = td.NMFLayer(x.size(), 3) # Instantiation
+        >>> nmf_layer = td.NMFLayer(x, 3) # Instantiation
 
     """
     def __init__(
-        self, size, n_components,
+        self, x, n_components,
         l1_lambda_w=torch.finfo(torch.float64).eps,
         l1_lambda_h=torch.finfo(torch.float64).eps,
         l2_lambda_w=torch.finfo(torch.float64).eps,
@@ -40,11 +41,16 @@ class NMFLayer(nn.Module):
         """Initialization function
         """
         super(NMFLayer, self).__init__()
+        _check_torch_tensor(x)
+        size0 = x.size(0)
+        size1 = x.size(1)
+        _check_dimension(size0, n_components)
+        _check_dimension(size1, n_components)
         self.eps = eps
         self.W = nn.Parameter(torch.rand(
-            size[0], n_components, dtype=torch.float64))
+            size0, n_components, dtype=torch.float64))
         self.H = nn.Parameter(torch.rand(
-            n_components, size[1], dtype=torch.float64))
+            n_components, size1, dtype=torch.float64))
         self.l1_lambda_w = l1_lambda_w
         self.l1_lambda_h = l1_lambda_h
         self.l2_lambda_w = l2_lambda_w

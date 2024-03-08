@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from .helper import _check_torch_tensor, _check_square_matrix
 
 
 class QRLayer(nn.Module):
@@ -9,22 +10,23 @@ class QRLayer(nn.Module):
     the product of Q (n times n) and R (m times n).
 
     Attributes:
-        size (int): The size of a symmetric matrix (n)
+        x (torch.Tensor): A square matrix X (n times n)
 
     Example:
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(6, 6) # Test datasets
-        >>> qr_layer = td.QRLayer(x.size()) # Instantiation
+        >>> qr_layer = td.QRLayer(x) # Instantiation
 
     """
-    def __init__(self, size):
+    def __init__(self, x):
         """Initialization function
         """
         super(QRLayer, self).__init__()
-        if size[0] != size[1]:
-            raise ValueError("QRLayer supports square matrices only.")
+        _check_torch_tensor(x)
+        _check_square_matrix(x)
+        size = x.size()
         Q = torch.nn.init.orthogonal_(torch.randn(size), gain=1)
         R = torch.triu(torch.randn(size), diagonal=0)
         self.Q = nn.Parameter(Q)
