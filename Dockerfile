@@ -4,7 +4,6 @@ RUN apt-get update &&\
     apt-get install git -y &&\
     git clone https://github.com/chiba-ai-med/PyTorchDecomp.git &&\
     cd PyTorchDecomp &&\
-    WHL=`ls dist/*.whl` &&\
-    pip install $WHL &&\
+    pip install `ls dist/*.whl` &&\
     pip install pytest-cov &&\
     pytest --cov=torchdecomp
