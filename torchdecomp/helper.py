@@ -116,19 +116,6 @@ def _enablePrint():
     sys.stdout = sys.__stdout__
 
 
-def _rho(beta, root=False):
-    if root:
-        out = 0.5
-    else:
-        if beta < 1:
-            out = 1 / (2 - beta)
-        if (1 <= beta) & (beta <= 2):
-            out = 1
-        if beta > 2:
-            out = 1 / (beta - 1)
-    return out
-
-
 def _plot(imgs, row_title=None, **imshow_kwargs):
     if not isinstance(imgs[0], list):
         # Make a 2d grid even if there's just 1 row
@@ -174,3 +161,16 @@ def _plot(imgs, row_title=None, **imshow_kwargs):
             axs[row_idx, 0].set(ylabel=row_title[row_idx])
 
     plt.tight_layout()
+
+
+def rho(beta, root=False):
+    if root:
+        out = 0.5
+    else:
+        if beta < 1:
+            out = 1 / (2 - beta)
+        if (1 <= beta) & (beta <= 2):
+            out = 1
+        if beta > 2:
+            out = 1 / (beta - 1)
+    return out

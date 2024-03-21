@@ -49,7 +49,6 @@ class KurtosisICALayer(nn.Module):
         >>> import torchdecomp as td
         >>> import torch
         >>> torch.manual_seed(123456)
-        >>> torch.manual_seed(123456)
         >>> x = torch.randn(10, 6) # Test datasets
         >>> rotation_layer = td.RotationLayer(x) # Instantiation
         >>> x_rotated = rotation_layer(x)
@@ -182,7 +181,7 @@ class DDICALayer(nn.Module):
         >>> import torch
         >>> torch.manual_seed(123456)
         >>> x = torch.randn(10, 6) # Test datasets
-        >>> loss = td.DDICALayer(x) # Instantiation
+        >>> loss = td.DDICALayer(x, sigma=1, alpha=1) # Instantiation
 
     Note:
        This model is very initial-value sensitive.

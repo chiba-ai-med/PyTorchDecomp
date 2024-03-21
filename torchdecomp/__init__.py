@@ -1,7 +1,7 @@
 """A set of matrix and tensor decomposition models
    implemented as PyTorch classes
 """
-from .helper import create_dummy_matrix, print_named_parameters
+from .helper import create_dummy_matrix, print_named_parameters, rho
 from .lu import LULayer
 from .cholesky import CholeskyLayer
 from .qr import QRLayer
@@ -16,7 +16,7 @@ from .nmf import NMFLayer
 # Object Export
 __all__ = [
     # Helper functions
-    "create_dummy_matrix", "print_named_parameters",
+    "create_dummy_matrix", "print_named_parameters", "rho",
     # LU Decomposition
     "LULayer",
     # Cholesky Decomposition

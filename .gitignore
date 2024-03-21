@@ -5,3 +5,9 @@ __pycache__
 */*/*/*/__pycache__
 
 .pytest_cache
+
+.virtual_documents
+
+docs/notebooks/data
+
+docs/notebooks/.ipynb_checkpoints
