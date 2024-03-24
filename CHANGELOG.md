@@ -1,5 +1,29 @@
 # Changelog
 
+## [1.3.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.2.0...v1.3.0) (2024-03-24)
+
+
+### Features
+
+* Notebook ([4d43072](https://github.com/chiba-ai-med/PyTorchDecomp/commit/4d43072605d38329c0eb5b9668d0f8c75e017efa))
+* Notebook ([738af1c](https://github.com/chiba-ai-med/PyTorchDecomp/commit/738af1cab712f5e9595b5f9fd194c92f850a0fdd))
+* Notebook ([bfa558c](https://github.com/chiba-ai-med/PyTorchDecomp/commit/bfa558c54d2df387151ab7cdeff81d5da4698c0b))
+* Notebook ([accd223](https://github.com/chiba-ai-med/PyTorchDecomp/commit/accd223da0384d090fae30989f34549eb547cd5d))
+* Notebook ([18fe5fb](https://github.com/chiba-ai-med/PyTorchDecomp/commit/18fe5fba426358a10d3902a656f92c5758e2afd0))
+* Notebook ([ee36485](https://github.com/chiba-ai-med/PyTorchDecomp/commit/ee364850f22556dfd85fc8d836d7968dee1371c8))
+* Notebook ([6559189](https://github.com/chiba-ai-med/PyTorchDecomp/commit/6559189a2253d0c1dfa708731279b15002211bd7))
+* Notebook ([5827b53](https://github.com/chiba-ai-med/PyTorchDecomp/commit/5827b53bd2b305b9f746cdedf13bf6e7a9d32a85))
+* poetry install =&gt; pip install ([c3bf715](https://github.com/chiba-ai-med/PyTorchDecomp/commit/c3bf715e40fa8ae48b903a79f2102304b8ecaa98))
+* Sphinx Docs ([4f7bb16](https://github.com/chiba-ai-med/PyTorchDecomp/commit/4f7bb16cf856b5b95ac900d21a62e7afdecc7229))
+* Sphinx Docs ([8aea7c0](https://github.com/chiba-ai-med/PyTorchDecomp/commit/8aea7c0079f8f147c7fa77d686259147e01caec4))
+* Sphinx Docs ([29c9d56](https://github.com/chiba-ai-med/PyTorchDecomp/commit/29c9d56a7f1135f4f9c7767988dc84a47b0e1f37))
+* Sphinx Docs ([d153abe](https://github.com/chiba-ai-med/PyTorchDecomp/commit/d153abe27df82507e3a6fddfe97e7f5bbcd5a83f))
+* Sphinx Docs ([055f75f](https://github.com/chiba-ai-med/PyTorchDecomp/commit/055f75fac9752f204d3d54a09192c1b2506d539a))
+* Sphinx Docs ([7cab217](https://github.com/chiba-ai-med/PyTorchDecomp/commit/7cab217416f28e348a91eff0e16811f7a9c64f8a))
+* Sphinx Docs ([da9b215](https://github.com/chiba-ai-med/PyTorchDecomp/commit/da9b215ba2b4bcee9a2437cb34a2b5aad3960c10))
+* Sphinx Docs ([a1934e9](https://github.com/chiba-ai-med/PyTorchDecomp/commit/a1934e9be6f725bc965deafd26e99f693f1b4350))
+* Sphinx Docs ([5870422](https://github.com/chiba-ai-med/PyTorchDecomp/commit/5870422856a7c1ffdccb046fd1298065a16acabc))
+
 ## [1.2.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.1.0...v1.2.0) (2024-02-20)
 
 
