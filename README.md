@@ -4,7 +4,7 @@
 
 
 # PyTorchDecomp
-A set of matrix and tensor decomposition models implemented as PyTorch classes
+A set of matrix decomposition algorithms implemented as PyTorch classes
 
 
 ## Installation
