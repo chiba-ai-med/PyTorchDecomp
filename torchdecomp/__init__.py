@@ -1,7 +1,7 @@
-"""A set of matrix and tensor decomposition models
-   implemented as PyTorch classes
+"""A set of matrix decomposition algorithms
+implemented as PyTorch classes
 """
-from .helper import create_dummy_matrix, print_named_parameters, rho
+from .helper import create_dummy_matrix, print_named_parameters
 from .lu import LULayer
 from .cholesky import CholeskyLayer
 from .qr import QRLayer
@@ -10,13 +10,13 @@ from .rec import RecLayer
 from .symrec import SymRecLayer
 from .ica import RotationLayer, KurtosisICALayer
 from .ica import NegentropyICALayer, DDICALayer
-from .nmf import NMFLayer
+from .nmf import NMFLayer, gradNMF, updateNMF
 
 
 # Object Export
 __all__ = [
     # Helper functions
-    "create_dummy_matrix", "print_named_parameters", "rho",
+    "create_dummy_matrix", "print_named_parameters",
     # LU Decomposition
     "LULayer",
     # Cholesky Decomposition
@@ -32,5 +32,5 @@ __all__ = [
     # Independent Component Analysis
     "RotationLayer", "KurtosisICALayer", "NegentropyICALayer", "DDICALayer",
     # Non-negative Matrix Factorization
-    "NMFLayer"
+    "NMFLayer", "gradNMF", "updateNMF"
 ]

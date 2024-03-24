@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from .helper import _check_torch_tensor, _check_dimension
+from .helper import _check_torch_tensor, _check_dimension, _rho
 
 
 class NMFLayer(nn.Module):
@@ -58,7 +58,7 @@ class NMFLayer(nn.Module):
         self.bin_lambda_w = bin_lambda_w
         self.bin_lambda_h = bin_lambda_h
         self.beta = beta
-    
+
     def positive(self, X, WH, beta):
         """Positive Terms of Beta-NMF Object Function
         """
@@ -68,7 +68,7 @@ class NMFLayer(nn.Module):
             return (1 / (beta + 0.001)) * (WH**(beta + 0.001))
         else:
             return (1 / beta) * (WH**beta)
-    
+
     def negative(self, X, WH, beta):
         """Negative Terms of Beta-NMF Object Function
         """
@@ -78,7 +78,7 @@ class NMFLayer(nn.Module):
             return (1 / (beta - 0.999)) * (X * (WH**(beta - 0.999)))
         else:
             return (1 / (beta - 1)) * (X * (WH**(beta - 1)))
-    
+
     def positive_w(self, W, l1_lambda_w, l2_lambda_w, bin_lambda_w):
         """Positive Terms of L2 regularization against W
         """
@@ -86,13 +86,13 @@ class NMFLayer(nn.Module):
         l2_term = l2_lambda_w * W**2
         bin_term = bin_lambda_w * (W**4 + W**2)
         return l1_term + l2_term + bin_term
-    
+
     def negative_w(self, W, bin_lambda_w):
         """Negative Terms of L2 regularization against W
         """
         bin_term = bin_lambda_w * 2 * W**3
         return bin_term
-    
+
     def positive_h(self, H, l1_lambda_h, l2_lambda_h, bin_lambda_h):
         """Positive Terms of L2 regularization against H
         """
@@ -100,13 +100,13 @@ class NMFLayer(nn.Module):
         l2_term = l2_lambda_h * H**2
         bin_term = bin_lambda_h * (H**4 + H**2)
         return l1_term + l2_term + bin_term
-    
+
     def negative_h(self, H, bin_lambda_h):
         """Negative Terms of L2 regularization against H
         """
         bin_term = bin_lambda_h * 2 * H**3
         return bin_term
-    
+
     def loss(self, pos, neg, pos_w, neg_w, pos_h, neg_h):
         """Total Loss with the recontruction term and regularization terms
         """
@@ -132,3 +132,38 @@ class NMFLayer(nn.Module):
         neg_h = self.negative_h(self.H, self.bin_lambda_h)
         loss = self.loss(pos, neg, pos_w, neg_w, pos_h, neg_h)
         return loss, WH, pos, neg, pos_w, neg_w, pos_h, neg_h
+
+
+def gradNMF(WH, pos, neg, pos_w, neg_w, pos_h, neg_h, nmf_layer):
+    grad_pos = torch.autograd.grad(
+        pos, WH, grad_outputs=torch.ones_like(pos))[0]
+    grad_neg = torch.autograd.grad(
+        neg, WH, grad_outputs=torch.ones_like(neg))[0]
+    grad_pos_w = torch.autograd.grad(
+        pos_w, nmf_layer.W, grad_outputs=torch.ones_like(pos_w))[0]
+    grad_neg_w = torch.autograd.grad(
+        neg_w, nmf_layer.W, grad_outputs=torch.ones_like(neg_w))[0]
+    grad_pos_h = torch.autograd.grad(
+        pos_h, nmf_layer.H, grad_outputs=torch.ones_like(pos_h))[0]
+    grad_neg_h = torch.autograd.grad(
+        neg_h, nmf_layer.H, grad_outputs=torch.ones_like(neg_h))[0]
+    return grad_pos, grad_neg, grad_pos_w, grad_neg_w, grad_pos_h, grad_neg_h
+
+
+def updateNMF(
+    grad_pos, grad_neg, grad_pos_w, grad_neg_w, grad_pos_h,
+        grad_neg_h, nmf_layer, beta=2):
+    # Copy
+    W = nmf_layer.W.data.detach()
+    H = nmf_layer.H.data.detach()
+    # Update
+    W *= (
+        (torch.mm(grad_neg, H.T) + grad_neg_w) /
+        (torch.mm(grad_pos, H.T) + grad_pos_w))**_rho(beta=beta)
+    H *= (
+        (torch.mm(W.T, grad_neg) + grad_neg_h) /
+        (torch.mm(W.T, grad_pos) + grad_pos_h))**_rho(beta=beta)
+    # Normalization
+    W = torch.nn.functional.normalize(W, dim=0)
+    H = torch.nn.functional.normalize(H, dim=1)
+    return W, H

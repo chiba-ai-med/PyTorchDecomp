@@ -31,7 +31,7 @@ class QRLayer(nn.Module):
         R = torch.triu(torch.randn(size), diagonal=0)
         self.Q = nn.Parameter(Q)
         self.R = nn.Parameter(R)
-    
+
     def forward(self):
         """Forward propagation function
         """

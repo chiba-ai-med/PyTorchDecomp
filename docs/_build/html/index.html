@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" /> 
+    <link rel="next" title="Introduction" href="introduction.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,6 +45,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -82,6 +83,7 @@
 <div class="toctree-wrapper compound">
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -107,21 +109,34 @@ pip<span class="w"> </span>install<span class="w"> </span>torchdecomp
 </section>
 <section id="usage">
 <h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-
-
-</pre></div>
-</div>
+<p>See the <a class="reference external" href="https://chiba-ai-med.github.io/PyTorchDecomp/tutorials.html">tutorials</a>.</p>
 </section>
 <section id="references">
 <h3>References<a class="headerlink" href="#references" title="Link to this heading"></a></h3>
 <ul class="simple">
+<li><p><strong>LU/QR/Cholesky/Eigenvalue Decomposition</strong></p>
+<ul>
+<li><p>Gene H. Golub, Charles F. Van Loan Matrix Computations (Johns Hopkins Studies in the Mathematical Sciences)</p></li>
+</ul>
+</li>
+<li><p><strong>Principal Component Analysis (PCA) / Partial Least Squares (PLS)</strong></p>
+<ul>
+<li><p>R. Arora, A. Cotter, K. Livescu and N. Srebro, Stochastic optimization for PCA and PLS, 2012 50th Annual Allerton Conference on Communication, Control, and Computing, 2012, 861-868. 2012</p></li>
+</ul>
+</li>
+<li><p><strong>Independent Component Analysis (ICA)</strong></p>
+<ul>
+<li><p>Hybarinen, A. and Oja, E. Independent component analysis: algorithms and applications, Neural Networks, 13, 411-430. 2000</p></li>
+</ul>
+</li>
+<li><p><strong>Deep Deterministic ICA (DDICA)</strong></p>
+<ul>
+<li><p>H. Li, S. Yu and J. C. Príncipe, Deep Deterministic Independent Component Analysis for Hyperspectral Unmixing, 2022 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), 3878-3882, 2022</p></li>
+</ul>
+</li>
 <li><p><strong>Non-negative Matrix Factorization (NMF)</strong></p>
 <ul>
 <li><p>Kimura, K. A Study on Efficient Algorithms for Nonnegative Matrix/Tensor Factorization, Ph.D. Thesis, 2017</p></li>
-</ul>
-</li>
 <li><p><strong>Exponent term depending on Beta parameter</strong></p>
 <ul>
 <li><p>Nakano, M. et al., Convergence-guaranteed multiplicative algorithms for nonnegative matrix factorization with Beta-divergence. IEEE MLSP, 283-288, 2010</p></li>
@@ -130,6 +145,8 @@ pip<span class="w"> </span>install<span class="w"> </span>torchdecomp
 <li><p><strong>Beta-divergence NMF and Backpropagation</strong></p>
 <ul>
 <li><p>https://yoyololicon.github.io/posts/2021/02/torchnmf-algorithm/</p></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -164,7 +181,7 @@ pip<span class="w"> </span>install<span class="w"> </span>torchdecomp
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

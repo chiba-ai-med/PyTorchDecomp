@@ -31,7 +31,8 @@ def _check_symmetric_matrix(x):
     """An internal function used only in the torchdecomp module
     """
     check1 = len(x) == len(x[0])
-    check2 = all(x[i][j] == x[j][i] for i in range(len(x)) for j in range(len(x)))
+    check2 = all(
+        x[i][j] == x[j][i] for i in range(len(x)) for j in range(len(x)))
     assert (check1 & check2), 'Specify input as a symmetric matrix'
 
 
@@ -163,7 +164,7 @@ def _plot(imgs, row_title=None, **imshow_kwargs):
     plt.tight_layout()
 
 
-def rho(beta, root=False):
+def _rho(beta, root=False):
     if root:
         out = 0.5
     else:

@@ -43,6 +43,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -81,6 +82,7 @@
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">_check_torch_tensor</span>
 
+
 <span class="c1"># Rotation Matrix</span>
 <div class="viewcode-block" id="RotationLayer">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.ica.RotationLayer">[docs]</a>
@@ -110,7 +112,7 @@
         <span class="n">size</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mixing_matrix</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
             <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
-    
+
 <div class="viewcode-block" id="RotationLayer.forward">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.ica.RotationLayer.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -135,7 +137,6 @@
 <span class="sd">        &gt;&gt;&gt; import torchdecomp as td</span>
 <span class="sd">        &gt;&gt;&gt; import torch</span>
 <span class="sd">        &gt;&gt;&gt; torch.manual_seed(123456)</span>
-<span class="sd">        &gt;&gt;&gt; torch.manual_seed(123456)</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.randn(10, 6) # Test datasets</span>
 <span class="sd">        &gt;&gt;&gt; rotation_layer = td.RotationLayer(x) # Instantiation</span>
 <span class="sd">        &gt;&gt;&gt; x_rotated = rotation_layer(x)</span>
@@ -147,7 +148,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialization function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">KurtosisICALayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-    
+
 <div class="viewcode-block" id="KurtosisICALayer.forward">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.ica.KurtosisICALayer.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -185,7 +186,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialization function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NegentropyICALayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-    
+
 <div class="viewcode-block" id="NegentropyICALayer.forward">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.ica.NegentropyICALayer.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -210,7 +211,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_GramMatrixLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
-    
+
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward propagation function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -227,7 +228,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialization function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_EigenValsLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-    
+
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward propagation function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -242,7 +243,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_EntropyLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span>
-    
+
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward propagation function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -260,7 +261,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialization function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_HadamardProdLayer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-    
+
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Forward propagation function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -280,7 +281,7 @@
 <span class="sd">        &gt;&gt;&gt; import torch</span>
 <span class="sd">        &gt;&gt;&gt; torch.manual_seed(123456)</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.randn(10, 6) # Test datasets</span>
-<span class="sd">        &gt;&gt;&gt; loss = td.DDICALayer(x) # Instantiation</span>
+<span class="sd">        &gt;&gt;&gt; loss = td.DDICALayer(x, sigma=1, alpha=1) # Instantiation</span>
 
 <span class="sd">    Note:</span>
 <span class="sd">       This model is very initial-value sensitive.</span>
@@ -303,13 +304,12 @@
             <span class="n">_GramMatrixLayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">),</span>
             <span class="n">_EigenValsLayer</span><span class="p">(),</span>
             <span class="n">_EntropyLayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">))</span>
-        
         <span class="bp">self</span><span class="o">.</span><span class="n">seq_joint</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
             <span class="n">_GramMatrixLayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">)],</span>
             <span class="n">_HadamardProdLayer</span><span class="p">(),</span>
             <span class="n">_EigenValsLayer</span><span class="p">(),</span>
             <span class="n">_EntropyLayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">))</span>
-    
+
 <div class="viewcode-block" id="DDICALayer.forward">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.ica.DDICALayer.forward">[docs]</a>
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>

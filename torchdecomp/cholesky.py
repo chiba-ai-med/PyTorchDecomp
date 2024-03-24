@@ -33,7 +33,7 @@ class CholeskyLayer(nn.Module):
         for i in range(min(size)):
             L[i, i] = torch.exp(L[i, i])
         self.L = nn.Parameter(L)
-    
+
     def forward(self):
         """Forward propagation function
         """

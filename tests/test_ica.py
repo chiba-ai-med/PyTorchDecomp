@@ -1,7 +1,5 @@
 import torchdecomp as td
 import torch
-import pytest
-import numpy as np
 
 
 def test_RotationLayer():

@@ -3,6 +3,7 @@ import torch.nn as nn
 import math
 from .helper import _check_torch_tensor
 
+
 # Rotation Matrix
 class RotationLayer(nn.Module):
     """Rotation Matrix Factorization Layer
@@ -30,7 +31,7 @@ class RotationLayer(nn.Module):
         size = x.size(1)
         self.mixing_matrix = nn.Parameter(
             torch.randn(size, size))
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -60,7 +61,7 @@ class KurtosisICALayer(nn.Module):
         """Initialization function
         """
         super(KurtosisICALayer, self).__init__()
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -92,7 +93,7 @@ class NegentropyICALayer(nn.Module):
         """Initialization function
         """
         super(NegentropyICALayer, self).__init__()
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -113,7 +114,7 @@ class _GramMatrixLayer(nn.Module):
         """
         super(_GramMatrixLayer, self).__init__()
         self.sigma = sigma
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -130,7 +131,7 @@ class _EigenValsLayer(nn.Module):
         """Initialization function
         """
         super(_EigenValsLayer, self).__init__()
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -145,7 +146,7 @@ class _EntropyLayer(nn.Module):
         """
         super(_EntropyLayer, self).__init__()
         self.alpha = alpha
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -163,7 +164,7 @@ class _HadamardProdLayer(nn.Module):
         """Initialization function
         """
         super(_HadamardProdLayer, self).__init__()
-    
+
     def forward(self, x):
         """Forward propagation function
         """
@@ -204,13 +205,12 @@ class DDICALayer(nn.Module):
             _GramMatrixLayer(self.sigma),
             _EigenValsLayer(),
             _EntropyLayer(self.alpha))
-        
         self.seq_joint = nn.Sequential(*[nn.Sequential(
             _GramMatrixLayer(self.sigma)) for _ in range(size)],
             _HadamardProdLayer(),
             _EigenValsLayer(),
             _EntropyLayer(self.alpha))
-    
+
     def forward(self, x):
         """Forward propagation function
         """

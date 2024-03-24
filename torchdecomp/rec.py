@@ -32,7 +32,7 @@ class RecLayer(nn.Module):
         _check_dimension(size, n_components)
         V = torch.nn.init.orthogonal_(torch.randn(size, n_components), gain=1)
         self.V = nn.Parameter(V)
-    
+
     def forward(self, x):
         """Forward propagation function
         """

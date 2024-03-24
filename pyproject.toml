@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "torchdecomp"
 version = "1.3.0"
-description = "A set of matrix and tensor decomposition models implemented as PyTorch classes"
+description = "A set of matrix decomposition algorithms implemented as PyTorch classes"
 authors = ["Koki Tsuyuzaki <k.t.the-answer@hotmail.co.jp>"]
 maintainers = ["Koki Tsuyuzaki <k.t.the-answer@hotmail.co.jp>"]
 readme = "README.md"

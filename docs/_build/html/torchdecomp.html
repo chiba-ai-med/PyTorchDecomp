@@ -46,6 +46,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">torchdecomp package</a><ul>
@@ -76,6 +77,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.nmf">torchdecomp.nmf module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.NMFLayer"><code class="docutils literal notranslate"><span class="pre">NMFLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.gradNMF"><code class="docutils literal notranslate"><span class="pre">gradNMF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.updateNMF"><code class="docutils literal notranslate"><span class="pre">updateNMF()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.qr">torchdecomp.qr module</a><ul>
@@ -103,7 +106,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#torchdecomp.RotationLayer"><code class="docutils literal notranslate"><span class="pre">RotationLayer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#torchdecomp.SymRecLayer"><code class="docutils literal notranslate"><span class="pre">SymRecLayer</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#torchdecomp.create_dummy_matrix"><code class="docutils literal notranslate"><span class="pre">create_dummy_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.gradNMF"><code class="docutils literal notranslate"><span class="pre">gradNMF()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#torchdecomp.print_named_parameters"><code class="docutils literal notranslate"><span class="pre">print_named_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.updateNMF"><code class="docutils literal notranslate"><span class="pre">updateNMF()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -320,7 +325,7 @@ Independent Component Analysis Layer</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Instantiation</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -345,7 +350,6 @@ If the iteration is not proceeded, re-run sometimes.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
@@ -637,6 +641,16 @@ the product of W (n times k) and H (k times m).</p>
 
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.nmf.gradNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.nmf.</span></span><span class="sig-name descname"><span class="pre">gradNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#gradNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.gradNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.nmf.updateNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.nmf.</span></span><span class="sig-name descname"><span class="pre">updateNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#updateNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.updateNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-torchdecomp.qr">
 <span id="torchdecomp-qr-module"></span><h2>torchdecomp.qr module<a class="headerlink" href="#module-torchdecomp.qr" title="Link to this heading"></a></h2>
@@ -733,8 +747,8 @@ where the size of V is n times k (k &lt;&lt; m).</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Symmetric Reconstruction Layer</p>
 <p>A symmetric matrix X (n times n) is decomposed to
-the product of U (n times k), Sigma (k times k),
-and U^T (k times n).</p>
+the product of Q (n times k), Lambda (k times k),
+and Q^T (k times n).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torchdecomp.symrec.SymRecLayer.x">
 <span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.symrec.SymRecLayer.x" title="Link to this definition"></a></dt>
@@ -777,7 +791,7 @@ and U^T (k times n).</p>
 </section>
 <section id="module-torchdecomp">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-torchdecomp" title="Link to this heading"></a></h2>
-<p>A set of matrix and tensor decomposition models
+<p>A set of matrix decomposition algorithms
 implemented as PyTorch classes</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="torchdecomp.CholeskyLayer">
@@ -826,7 +840,7 @@ Independent Component Analysis Layer</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Instantiation</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -896,7 +910,6 @@ a smaller matrix XV (n times k, k &lt;&lt; m).</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
@@ -1269,8 +1282,8 @@ a rotation matrix A such as XA (n times m).</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
 <p>Symmetric Reconstruction Layer</p>
 <p>A symmetric matrix X (n times n) is decomposed to
-the product of U (n times k), Sigma (k times k),
-and U^T (k times n).</p>
+the product of Q (n times k), Lambda (k times k),
+and Q^T (k times n).</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="torchdecomp.SymRecLayer.x">
 <span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.SymRecLayer.x" title="Link to this definition"></a></dt>
@@ -1335,6 +1348,11 @@ and the number of columns is the number of data.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.gradNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">gradNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#gradNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.gradNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="torchdecomp.print_named_parameters">
 <span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">print_named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">named_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/helper.html#print_named_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.print_named_parameters" title="Link to this definition"></a></dt>
 <dd><p>Outputs the contents of the named parameters.</p>
@@ -1380,6 +1398,11 @@ or nn.Parameter (cf. nn.Module).</p>
 by gradient descent (e.g., torch.optim.SGD)</p>
 </div>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.updateNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">updateNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#updateNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.updateNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </section>
 </section>

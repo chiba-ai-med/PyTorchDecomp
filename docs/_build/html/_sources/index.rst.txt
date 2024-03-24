@@ -10,6 +10,7 @@ PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch class
    :maxdepth: 1
 
    self
+   introduction
    tutorials
    modules
    changelog

@@ -34,7 +34,7 @@ class LULayer(nn.Module):
             L[i, i] = 1.0
         self.L = nn.Parameter(L)
         self.U = nn.Parameter(U)
-    
+
     def forward(self):
         """Forward propagation function
         """

@@ -1,14 +1,15 @@
 import torch
 import torch.nn as nn
-from .helper import _check_torch_tensor, _check_symmetric_matrix, _check_dimension
+from .helper import _check_torch_tensor, _check_symmetric_matrix
+from .helper import _check_dimension
 
 
 class SymRecLayer(nn.Module):
     """Symmetric Reconstruction Layer
 
     A symmetric matrix X (n times n) is decomposed to
-    the product of U (n times k), Sigma (k times k),
-    and U^T (k times n).
+    the product of Q (n times k), Lambda (k times k),
+    and Q^T (k times n).
 
     Attributes:
         x (torch.Tensor): A symmetric matrix X (n times n)
@@ -31,13 +32,13 @@ class SymRecLayer(nn.Module):
         _check_symmetric_matrix(x)
         size = x.size(0)
         _check_dimension(size, n_components)
-        U = torch.nn.init.orthogonal_(torch.randn(size, n_components), gain=1)
-        Sigma = torch.diag(torch.sort(
+        Q = torch.nn.init.orthogonal_(torch.randn(size, n_components), gain=1)
+        Lambda = torch.diag(torch.sort(
             torch.randn(n_components)**2, descending=True).values)
-        self.U = nn.Parameter(U)
-        self.Sigma = nn.Parameter(Sigma)
-    
+        self.Q = nn.Parameter(Q)
+        self.Lambda = nn.Parameter(Lambda)
+
     def forward(self):
         """Forward propagation function
         """
-        return torch.mm(torch.mm(self.U, self.Sigma), self.U.t())
+        return torch.mm(torch.mm(self.Q, self.Lambda), self.Q.t())

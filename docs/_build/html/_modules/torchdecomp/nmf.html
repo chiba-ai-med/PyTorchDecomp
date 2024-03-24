@@ -43,6 +43,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -78,7 +79,7 @@
   <h1>Source code for torchdecomp.nmf</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">_check_torch_tensor</span><span class="p">,</span> <span class="n">_check_dimension</span>
+<span class="kn">from</span> <span class="nn">.helper</span> <span class="kn">import</span> <span class="n">_check_torch_tensor</span><span class="p">,</span> <span class="n">_check_dimension</span><span class="p">,</span> <span class="n">_rho</span>
 
 
 <div class="viewcode-block" id="NMFLayer">
@@ -138,7 +139,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_lambda_w</span> <span class="o">=</span> <span class="n">bin_lambda_w</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bin_lambda_h</span> <span class="o">=</span> <span class="n">bin_lambda_h</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span>
-    
+
 <div class="viewcode-block" id="NMFLayer.positive">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.positive">[docs]</a>
     <span class="k">def</span> <span class="nf">positive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">WH</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
@@ -151,7 +152,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">beta</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">WH</span><span class="o">**</span><span class="n">beta</span><span class="p">)</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.negative">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.negative">[docs]</a>
     <span class="k">def</span> <span class="nf">negative</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">WH</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
@@ -164,7 +165,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span> <span class="o">*</span> <span class="p">(</span><span class="n">WH</span><span class="o">**</span><span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.positive_w">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.positive_w">[docs]</a>
     <span class="k">def</span> <span class="nf">positive_w</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">l1_lambda_w</span><span class="p">,</span> <span class="n">l2_lambda_w</span><span class="p">,</span> <span class="n">bin_lambda_w</span><span class="p">):</span>
@@ -175,7 +176,7 @@
         <span class="n">bin_term</span> <span class="o">=</span> <span class="n">bin_lambda_w</span> <span class="o">*</span> <span class="p">(</span><span class="n">W</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">W</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">l1_term</span> <span class="o">+</span> <span class="n">l2_term</span> <span class="o">+</span> <span class="n">bin_term</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.negative_w">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.negative_w">[docs]</a>
     <span class="k">def</span> <span class="nf">negative_w</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">bin_lambda_w</span><span class="p">):</span>
@@ -184,7 +185,7 @@
         <span class="n">bin_term</span> <span class="o">=</span> <span class="n">bin_lambda_w</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">W</span><span class="o">**</span><span class="mi">3</span>
         <span class="k">return</span> <span class="n">bin_term</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.positive_h">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.positive_h">[docs]</a>
     <span class="k">def</span> <span class="nf">positive_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">l1_lambda_h</span><span class="p">,</span> <span class="n">l2_lambda_h</span><span class="p">,</span> <span class="n">bin_lambda_h</span><span class="p">):</span>
@@ -195,7 +196,7 @@
         <span class="n">bin_term</span> <span class="o">=</span> <span class="n">bin_lambda_h</span> <span class="o">*</span> <span class="p">(</span><span class="n">H</span><span class="o">**</span><span class="mi">4</span> <span class="o">+</span> <span class="n">H</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">l1_term</span> <span class="o">+</span> <span class="n">l2_term</span> <span class="o">+</span> <span class="n">bin_term</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.negative_h">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.negative_h">[docs]</a>
     <span class="k">def</span> <span class="nf">negative_h</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">bin_lambda_h</span><span class="p">):</span>
@@ -204,7 +205,7 @@
         <span class="n">bin_term</span> <span class="o">=</span> <span class="n">bin_lambda_h</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">H</span><span class="o">**</span><span class="mi">3</span>
         <span class="k">return</span> <span class="n">bin_term</span></div>
 
-    
+
 <div class="viewcode-block" id="NMFLayer.loss">
 <a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.NMFLayer.loss">[docs]</a>
     <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">pos_w</span><span class="p">,</span> <span class="n">neg_w</span><span class="p">,</span> <span class="n">pos_h</span><span class="p">,</span> <span class="n">neg_h</span><span class="p">):</span>
@@ -236,6 +237,47 @@
         <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">pos_w</span><span class="p">,</span> <span class="n">neg_w</span><span class="p">,</span> <span class="n">pos_h</span><span class="p">,</span> <span class="n">neg_h</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">loss</span><span class="p">,</span> <span class="n">WH</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">pos_w</span><span class="p">,</span> <span class="n">neg_w</span><span class="p">,</span> <span class="n">pos_h</span><span class="p">,</span> <span class="n">neg_h</span></div>
 </div>
+
+
+
+<div class="viewcode-block" id="gradNMF">
+<a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.gradNMF">[docs]</a>
+<span class="k">def</span> <span class="nf">gradNMF</span><span class="p">(</span><span class="n">WH</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">neg</span><span class="p">,</span> <span class="n">pos_w</span><span class="p">,</span> <span class="n">neg_w</span><span class="p">,</span> <span class="n">pos_h</span><span class="p">,</span> <span class="n">neg_h</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="p">):</span>
+    <span class="n">grad_pos</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">pos</span><span class="p">,</span> <span class="n">WH</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">pos</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">grad_neg</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">neg</span><span class="p">,</span> <span class="n">WH</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">neg</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">grad_pos_w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">pos_w</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">pos_w</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">grad_neg_w</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">neg_w</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">W</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">neg_w</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">grad_pos_h</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">pos_h</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">pos_h</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">grad_neg_h</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span>
+        <span class="n">neg_h</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">H</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">neg_h</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">grad_pos</span><span class="p">,</span> <span class="n">grad_neg</span><span class="p">,</span> <span class="n">grad_pos_w</span><span class="p">,</span> <span class="n">grad_neg_w</span><span class="p">,</span> <span class="n">grad_pos_h</span><span class="p">,</span> <span class="n">grad_neg_h</span></div>
+
+
+
+<div class="viewcode-block" id="updateNMF">
+<a class="viewcode-back" href="../../torchdecomp.html#torchdecomp.nmf.updateNMF">[docs]</a>
+<span class="k">def</span> <span class="nf">updateNMF</span><span class="p">(</span>
+    <span class="n">grad_pos</span><span class="p">,</span> <span class="n">grad_neg</span><span class="p">,</span> <span class="n">grad_pos_w</span><span class="p">,</span> <span class="n">grad_neg_w</span><span class="p">,</span> <span class="n">grad_pos_h</span><span class="p">,</span>
+        <span class="n">grad_neg_h</span><span class="p">,</span> <span class="n">nmf_layer</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="c1"># Copy</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">W</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">nmf_layer</span><span class="o">.</span><span class="n">H</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+    <span class="c1"># Update</span>
+    <span class="n">W</span> <span class="o">*=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">grad_neg</span><span class="p">,</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">grad_neg_w</span><span class="p">)</span> <span class="o">/</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">grad_pos</span><span class="p">,</span> <span class="n">H</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="n">grad_pos_w</span><span class="p">))</span><span class="o">**</span><span class="n">_rho</span><span class="p">(</span><span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">*=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grad_neg</span><span class="p">)</span> <span class="o">+</span> <span class="n">grad_neg_h</span><span class="p">)</span> <span class="o">/</span>
+        <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grad_pos</span><span class="p">)</span> <span class="o">+</span> <span class="n">grad_pos_h</span><span class="p">))</span><span class="o">**</span><span class="n">_rho</span><span class="p">(</span><span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+    <span class="c1"># Normalization</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">H</span></div>
 
 </pre></div>
 
