@@ -4,10 +4,15 @@ __pycache__
 */*/*/__pycache__
 */*/*/*/__pycache__
 
+._*
+*/._*
+*/*/._*
+*/*/*/._*
+*/*/*/*/._*
+
 .pytest_cache
 
 .virtual_documents
 
-docs/notebooks/data
-
-docs/notebooks/.ipynb_checkpoints
+docs/_static/notebooks/data
+docs/_static/notebooks/.ipynb_checkpoints
