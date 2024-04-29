@@ -14,4 +14,4 @@ This tutorial shows how to decompose a matrix into the matrix product of factor 
 3. Supervised Dimensional Reduction (PCA vs PLS)
 -------------------------------------------------------------------
 This tutorial shows how to decompose a matrix into the matrix product of factor matrices with label information.
-`Google Colab <https://colab.research.google.com/github/chiba-ai-med/PyTorchDecomp/blob/main/docs/_static/notebooks/tutorial_3_supervised.ipynb>`_
+`Google Colab <https://colab.research.google.com/github/chiba-ai-med/PyTorchDecomp/blob/main/docs/notebooks/tutorial_3_supervised.ipynb>`_
