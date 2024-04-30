@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.2](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.1...v1.3.2) (2024-04-30)
+
+
+### Bug Fixes
+
+* _build/html ([49985ce](https://github.com/chiba-ai-med/PyTorchDecomp/commit/49985ceb315d365af3a0175a02cf67c03c1b46df))
+
 ## [1.3.1](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.0...v1.3.1) (2024-04-30)
 
 
