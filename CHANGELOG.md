@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.1](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.0...v1.3.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* docs/tutorials.rst ([51f89fe](https://github.com/chiba-ai-med/PyTorchDecomp/commit/51f89fe9e1b0b1853f90e8544a613f2fd3e34915))
+* Notebooks ([68bd11b](https://github.com/chiba-ai-med/PyTorchDecomp/commit/68bd11b79660b4d88f88aba755d749169e0a54f2))
+* Py3.12=&gt;3.10 ([6e97778](https://github.com/chiba-ai-med/PyTorchDecomp/commit/6e97778159e21fdbc9f46db2acc583961d9ed8dc))
+* README.md ([c09b4f4](https://github.com/chiba-ai-med/PyTorchDecomp/commit/c09b4f4c5bcaa5db617953cce5aeebcfd86dd2da))
+* Sklearn ([7dba96d](https://github.com/chiba-ai-med/PyTorchDecomp/commit/7dba96d1bb7beb65ca1511819fade9cdf76a5e88))
+
 ## [1.3.0](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.2.0...v1.3.0) (2024-03-24)
 
 
