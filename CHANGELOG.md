@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.3](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.2...v1.3.3) (2024-06-20)
+
+
+### Bug Fixes
+
+* normW/normH ([5def5d6](https://github.com/chiba-ai-med/PyTorchDecomp/commit/5def5d68391444b069ed4b3f5697f8ea9df7928b))
+
 ## [1.3.2](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.1...v1.3.2) (2024-04-30)
 
 
