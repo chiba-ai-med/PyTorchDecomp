@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.4](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.3...v1.3.4) (2024-06-20)
+
+
+### Bug Fixes
+
+* Numpy 2.0.0 -&gt; 1.26.4 ([cd0fe6d](https://github.com/chiba-ai-med/PyTorchDecomp/commit/cd0fe6d5b6d71d1f92c6c2b316d552891c3c3396))
+
 ## [1.3.3](https://github.com/chiba-ai-med/PyTorchDecomp/compare/v1.3.2...v1.3.3) (2024-06-20)
 
 
