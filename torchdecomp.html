@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>torchdecomp package &mdash; PyTorchDecomp 1.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6efca38a"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Changelog" href="changelog.html" />
+    <link rel="prev" title="Modules" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PyTorchDecomp
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">PyTorchDecomp: A set of matrix decomposition models implemented as PyTorch classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">torchdecomp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.cholesky">torchdecomp.cholesky module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.cholesky.CholeskyLayer"><code class="docutils literal notranslate"><span class="pre">CholeskyLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.factor">torchdecomp.factor module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.factor.FactorLayer"><code class="docutils literal notranslate"><span class="pre">FactorLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.helper">torchdecomp.helper module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.helper.create_dummy_matrix"><code class="docutils literal notranslate"><span class="pre">create_dummy_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.helper.print_named_parameters"><code class="docutils literal notranslate"><span class="pre">print_named_parameters()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.ica">torchdecomp.ica module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.ica.DDICALayer"><code class="docutils literal notranslate"><span class="pre">DDICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.ica.KurtosisICALayer"><code class="docutils literal notranslate"><span class="pre">KurtosisICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.ica.NegentropyICALayer"><code class="docutils literal notranslate"><span class="pre">NegentropyICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.ica.RotationLayer"><code class="docutils literal notranslate"><span class="pre">RotationLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.lu">torchdecomp.lu module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.lu.LULayer"><code class="docutils literal notranslate"><span class="pre">LULayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.nmf">torchdecomp.nmf module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.NMFLayer"><code class="docutils literal notranslate"><span class="pre">NMFLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.gradNMF"><code class="docutils literal notranslate"><span class="pre">gradNMF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.nmf.updateNMF"><code class="docutils literal notranslate"><span class="pre">updateNMF()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.qr">torchdecomp.qr module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.qr.QRLayer"><code class="docutils literal notranslate"><span class="pre">QRLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.rec">torchdecomp.rec module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.rec.RecLayer"><code class="docutils literal notranslate"><span class="pre">RecLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp.symrec">torchdecomp.symrec module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.symrec.SymRecLayer"><code class="docutils literal notranslate"><span class="pre">SymRecLayer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-torchdecomp">Module contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.CholeskyLayer"><code class="docutils literal notranslate"><span class="pre">CholeskyLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.DDICALayer"><code class="docutils literal notranslate"><span class="pre">DDICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.FactorLayer"><code class="docutils literal notranslate"><span class="pre">FactorLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.KurtosisICALayer"><code class="docutils literal notranslate"><span class="pre">KurtosisICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.LULayer"><code class="docutils literal notranslate"><span class="pre">LULayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.NMFLayer"><code class="docutils literal notranslate"><span class="pre">NMFLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.NegentropyICALayer"><code class="docutils literal notranslate"><span class="pre">NegentropyICALayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.QRLayer"><code class="docutils literal notranslate"><span class="pre">QRLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.RecLayer"><code class="docutils literal notranslate"><span class="pre">RecLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.RotationLayer"><code class="docutils literal notranslate"><span class="pre">RotationLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.SymRecLayer"><code class="docutils literal notranslate"><span class="pre">SymRecLayer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.create_dummy_matrix"><code class="docutils literal notranslate"><span class="pre">create_dummy_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.gradNMF"><code class="docutils literal notranslate"><span class="pre">gradNMF()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.print_named_parameters"><code class="docutils literal notranslate"><span class="pre">print_named_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#torchdecomp.updateNMF"><code class="docutils literal notranslate"><span class="pre">updateNMF()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to PyTorchDecomp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_of_conduct.html">Code of conduct</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyTorchDecomp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Modules</a></li>
+      <li class="breadcrumb-item active">torchdecomp package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/torchdecomp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="torchdecomp-package">
+<h1>torchdecomp package<a class="headerlink" href="#torchdecomp-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-torchdecomp.cholesky">
+<span id="torchdecomp-cholesky-module"></span><h2>torchdecomp.cholesky module<a class="headerlink" href="#module-torchdecomp.cholesky" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.cholesky.CholeskyLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.cholesky.</span></span><span class="sig-name descname"><span class="pre">CholeskyLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/cholesky.html#CholeskyLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.cholesky.CholeskyLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Cholesky Decomposition Layer</p>
+<p>A symmetric matrix X (n times n) is decomposed to
+the product of L (n times n) and L^T (n times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.cholesky.CholeskyLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.cholesky.CholeskyLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A symmetric matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="c1"># Symmetalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cholesky_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">CholeskyLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.cholesky.CholeskyLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/cholesky.html#CholeskyLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.cholesky.CholeskyLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.factor">
+<span id="torchdecomp-factor-module"></span><h2>torchdecomp.factor module<a class="headerlink" href="#module-torchdecomp.factor" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.factor.FactorLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.factor.</span></span><span class="sig-name descname"><span class="pre">FactorLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/factor.html#FactorLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.factor.FactorLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Factor Matrix Layer</p>
+<p>A matrix X (n times m) is projected to
+a smaller matrix XV (n times k, k &lt;&lt; m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.factor.FactorLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.factor.FactorLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.factor.FactorLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.factor.FactorLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">factor_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">FactorLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.factor.FactorLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/factor.html#FactorLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.factor.FactorLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.helper">
+<span id="torchdecomp-helper-module"></span><h2>torchdecomp.helper module<a class="headerlink" href="#module-torchdecomp.helper" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.helper.create_dummy_matrix">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.helper.</span></span><span class="sig-name descname"><span class="pre">create_dummy_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/helper.html#create_dummy_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.helper.create_dummy_matrix" title="Link to this definition"></a></dt>
+<dd><p>Creates a dummy matrix from a class label vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>class_vector</strong> – A PyTorch array with numeric elements</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A PyTorch array filled with dummy vectors</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">create_dummy_matrix</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of rows is the number of classes
+and the number of columns is the number of data.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.helper.print_named_parameters">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.helper.</span></span><span class="sig-name descname"><span class="pre">print_named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">named_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/helper.html#print_named_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.helper.print_named_parameters" title="Link to this definition"></a></dt>
+<dd><p>Outputs the contents of the named parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>named_params</strong> – An object instantiated by user’s original class</p></li>
+<li><p><strong>nn.Module.</strong> (<em>defined from PyTorch's</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Leaf variables defined as PyTorch Tensor(s)
+set with requires_grad_(), requires_grad=True option,
+or nn.Parameter (cf. nn.Module).</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MLPNet</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="go">        def __init__(self):</span>
+<span class="go">            super().__init__()</span>
+<span class="go">            self.fc1 = nn.Linear(1 * 28 * 28, 512)</span>
+<span class="go">            self.fc2 = nn.Linear(512, 512)</span>
+<span class="go">            self.fc3 = nn.Linear(512, 10)</span>
+<span class="go">            self.dropout1 = nn.Dropout2d(0.2)</span>
+<span class="go">            self.dropout2 = nn.Dropout2d(0.2)</span>
+<span class="go">        def forward(self, x):</span>
+<span class="go">            x = F.relu(self.fc1(x))</span>
+<span class="go">            x = self.dropout1(x)</span>
+<span class="go">            x = F.relu(self.fc2(x))</span>
+<span class="go">            x = self.dropout2(x)</span>
+<span class="go">            return F.relu(self.fc3(x))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MLPNet</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">print_named_parameters</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These Tensor object(s) is/are subject to the optimization
+by gradient descent (e.g., torch.optim.SGD)</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.ica">
+<span id="torchdecomp-ica-module"></span><h2>torchdecomp.ica module<a class="headerlink" href="#module-torchdecomp.ica" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.ica.DDICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.ica.</span></span><span class="sig-name descname"><span class="pre">DDICALayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#DDICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.DDICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Deep Deterministic Independent Component Analysis-based
+Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This model is very initial-value sensitive.
+If the iteration is not proceeded, re-run sometimes.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.ica.DDICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#DDICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.DDICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.ica.KurtosisICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.ica.</span></span><span class="sig-name descname"><span class="pre">KurtosisICALayer</span></span><a class="reference internal" href="_modules/torchdecomp/ica.html#KurtosisICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.KurtosisICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Kurtosis-based Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">KurtosisICALayer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="p">(</span><span class="n">x_rotated</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.ica.KurtosisICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#KurtosisICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.KurtosisICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.ica.NegentropyICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.ica.</span></span><span class="sig-name descname"><span class="pre">NegentropyICALayer</span></span><a class="reference internal" href="_modules/torchdecomp/ica.html#NegentropyICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.NegentropyICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Negentropy-based Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">NegentropyICALayer</span><span class="p">()</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="p">(</span><span class="n">x_rotated</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.ica.NegentropyICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#NegentropyICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.NegentropyICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.ica.RotationLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.ica.</span></span><span class="sig-name descname"><span class="pre">RotationLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#RotationLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.RotationLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Rotation Matrix Factorization Layer</p>
+<p>A matrix X (n times m) is rotated by
+a rotation matrix A such as XA (n times m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.ica.RotationLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.ica.RotationLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.ica.RotationLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#RotationLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.ica.RotationLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.lu">
+<span id="torchdecomp-lu-module"></span><h2>torchdecomp.lu module<a class="headerlink" href="#module-torchdecomp.lu" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.lu.LULayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.lu.</span></span><span class="sig-name descname"><span class="pre">LULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/lu.html#LULayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.lu.LULayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>LU Decomposition Layer</p>
+<p>A square matrix X (n times n) is decomposed to
+the product of L (n times n) and U (n times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.lu.LULayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.lu.LULayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lu_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">LULayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.lu.LULayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/lu.html#LULayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.lu.LULayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.nmf">
+<span id="torchdecomp-nmf-module"></span><h2>torchdecomp.nmf module<a class="headerlink" href="#module-torchdecomp.nmf" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.nmf.</span></span><span class="sig-name descname"><span class="pre">NMFLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Non-negative Matrix Factorization Layer</p>
+<p>A non-negative matrix X (n times m) is decomposed to
+the product of W (n times k) and H (k times m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A non-negative matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.l1_lambda_w">
+<span class="sig-name descname"><span class="pre">l1_lambda_w</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.l1_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>L1 regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.l1_lambda_h">
+<span class="sig-name descname"><span class="pre">l1_lambda_h</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.l1_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>L1 regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.l2_lambda_w">
+<span class="sig-name descname"><span class="pre">l2_lambda_w</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.l2_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>L2 regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.l2_lambda_h">
+<span class="sig-name descname"><span class="pre">l2_lambda_h</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.l2_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>L2 regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.bin_lambda_w">
+<span class="sig-name descname"><span class="pre">bin_lambda_w</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.bin_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>Binarization regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.bin_lambda_h">
+<span class="sig-name descname"><span class="pre">bin_lambda_h</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.bin_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>Binarization regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.eps">
+<span class="sig-name descname"><span class="pre">eps</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.eps" title="Link to this definition"></a></dt>
+<dd><p>Offset value to avoid zero division</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.beta" title="Link to this definition"></a></dt>
+<dd><p>Beta parameter of Beta-divergence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nmf_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">NMFLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.loss">
+<span class="sig-name descname"><span class="pre">loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.loss" title="Link to this definition"></a></dt>
+<dd><p>Total Loss with the recontruction term and regularization terms</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.negative">
+<span class="sig-name descname"><span class="pre">negative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.negative" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of Beta-NMF Object Function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.negative_h">
+<span class="sig-name descname"><span class="pre">negative_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.negative_h" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of L2 regularization against H</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.negative_w">
+<span class="sig-name descname"><span class="pre">negative_w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative_w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.negative_w" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of L2 regularization against W</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.positive">
+<span class="sig-name descname"><span class="pre">positive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.positive" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of Beta-NMF Object Function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.positive_h">
+<span class="sig-name descname"><span class="pre">positive_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.positive_h" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of L2 regularization against H</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.nmf.NMFLayer.positive_w">
+<span class="sig-name descname"><span class="pre">positive_w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive_w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.NMFLayer.positive_w" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of L2 regularization against W</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.nmf.gradNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.nmf.</span></span><span class="sig-name descname"><span class="pre">gradNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#gradNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.gradNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.nmf.updateNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.nmf.</span></span><span class="sig-name descname"><span class="pre">updateNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#updateNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.nmf.updateNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-torchdecomp.qr">
+<span id="torchdecomp-qr-module"></span><h2>torchdecomp.qr module<a class="headerlink" href="#module-torchdecomp.qr" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.qr.QRLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.qr.</span></span><span class="sig-name descname"><span class="pre">QRLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/qr.html#QRLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.qr.QRLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>QR Decomposition Layer</p>
+<p>A square matrix X (n times n) is decomposed to
+the product of Q (n times n) and R (m times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.qr.QRLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.qr.QRLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qr_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">QRLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.qr.QRLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/qr.html#QRLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.qr.QRLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.rec">
+<span id="torchdecomp-rec-module"></span><h2>torchdecomp.rec module<a class="headerlink" href="#module-torchdecomp.rec" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.rec.RecLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.rec.</span></span><span class="sig-name descname"><span class="pre">RecLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/rec.html#RecLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.rec.RecLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Reconstruction Matrix Layer</p>
+<p>A matrix X (n times m) is projected to
+a smaller matrix XV,
+and then reconstructed such as XVV^T,
+where the size of V is n times k (k &lt;&lt; m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.rec.RecLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.rec.RecLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.rec.RecLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.rec.RecLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rec_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RecLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.rec.RecLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/rec.html#RecLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.rec.RecLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp.symrec">
+<span id="torchdecomp-symrec-module"></span><h2>torchdecomp.symrec module<a class="headerlink" href="#module-torchdecomp.symrec" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.symrec.SymRecLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.symrec.</span></span><span class="sig-name descname"><span class="pre">SymRecLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/symrec.html#SymRecLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.symrec.SymRecLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Symmetric Reconstruction Layer</p>
+<p>A symmetric matrix X (n times n) is decomposed to
+the product of Q (n times k), Lambda (k times k),
+and Q^T (k times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.symrec.SymRecLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.symrec.SymRecLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A symmetric matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.symrec.SymRecLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.symrec.SymRecLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="c1"># Symmetalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">symrec_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">SymRecLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.symrec.SymRecLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/symrec.html#SymRecLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.symrec.SymRecLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-torchdecomp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-torchdecomp" title="Link to this heading"></a></h2>
+<p>A set of matrix decomposition algorithms
+implemented as PyTorch classes</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.CholeskyLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">CholeskyLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/cholesky.html#CholeskyLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.CholeskyLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Cholesky Decomposition Layer</p>
+<p>A symmetric matrix X (n times n) is decomposed to
+the product of L (n times n) and L^T (n times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.CholeskyLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.CholeskyLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A symmetric matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="c1"># Symmetalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cholesky_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">CholeskyLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.CholeskyLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/cholesky.html#CholeskyLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.CholeskyLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.DDICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">DDICALayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#DDICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.DDICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Deep Deterministic Independent Component Analysis-based
+Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">DDICALayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This model is very initial-value sensitive.
+If the iteration is not proceeded, re-run sometimes.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.DDICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#DDICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.DDICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.FactorLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">FactorLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/factor.html#FactorLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.FactorLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Factor Matrix Layer</p>
+<p>A matrix X (n times m) is projected to
+a smaller matrix XV (n times k, k &lt;&lt; m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.FactorLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.FactorLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.FactorLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.FactorLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">factor_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">FactorLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.FactorLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/factor.html#FactorLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.FactorLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.KurtosisICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">KurtosisICALayer</span></span><a class="reference internal" href="_modules/torchdecomp/ica.html#KurtosisICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.KurtosisICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Kurtosis-based Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">KurtosisICALayer</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="p">(</span><span class="n">x_rotated</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.KurtosisICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#KurtosisICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.KurtosisICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.LULayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">LULayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/lu.html#LULayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.LULayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>LU Decomposition Layer</p>
+<p>A square matrix X (n times n) is decomposed to
+the product of L (n times n) and U (n times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.LULayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.LULayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lu_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">LULayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.LULayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/lu.html#LULayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.LULayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">NMFLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.220446049250313e-16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Non-negative Matrix Factorization Layer</p>
+<p>A non-negative matrix X (n times m) is decomposed to
+the product of W (n times k) and H (k times m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A non-negative matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.l1_lambda_w">
+<span class="sig-name descname"><span class="pre">l1_lambda_w</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.l1_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>L1 regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.l1_lambda_h">
+<span class="sig-name descname"><span class="pre">l1_lambda_h</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.l1_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>L1 regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.l2_lambda_w">
+<span class="sig-name descname"><span class="pre">l2_lambda_w</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.l2_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>L2 regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.l2_lambda_h">
+<span class="sig-name descname"><span class="pre">l2_lambda_h</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.l2_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>L2 regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.bin_lambda_w">
+<span class="sig-name descname"><span class="pre">bin_lambda_w</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.bin_lambda_w" title="Link to this definition"></a></dt>
+<dd><p>Binarization regularization parameter for W</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.bin_lambda_h">
+<span class="sig-name descname"><span class="pre">bin_lambda_h</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.bin_lambda_h" title="Link to this definition"></a></dt>
+<dd><p>Binarization regularization parameter for H</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.eps">
+<span class="sig-name descname"><span class="pre">eps</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.eps" title="Link to this definition"></a></dt>
+<dd><p>Offset value to avoid zero division</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.beta">
+<span class="sig-name descname"><span class="pre">beta</span></span><a class="headerlink" href="#torchdecomp.NMFLayer.beta" title="Link to this definition"></a></dt>
+<dd><p>Beta parameter of Beta-divergence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nmf_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">NMFLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.loss">
+<span class="sig-name descname"><span class="pre">loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.loss" title="Link to this definition"></a></dt>
+<dd><p>Total Loss with the recontruction term and regularization terms</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.negative">
+<span class="sig-name descname"><span class="pre">negative</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.negative" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of Beta-NMF Object Function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.negative_h">
+<span class="sig-name descname"><span class="pre">negative_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.negative_h" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of L2 regularization against H</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.negative_w">
+<span class="sig-name descname"><span class="pre">negative_w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.negative_w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.negative_w" title="Link to this definition"></a></dt>
+<dd><p>Negative Terms of L2 regularization against W</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.positive">
+<span class="sig-name descname"><span class="pre">positive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.positive" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of Beta-NMF Object Function</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.positive_h">
+<span class="sig-name descname"><span class="pre">positive_h</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">H</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_h</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive_h"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.positive_h" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of L2 regularization against H</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NMFLayer.positive_w">
+<span class="sig-name descname"><span class="pre">positive_w</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">W</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_lambda_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l2_lambda_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_lambda_w</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#NMFLayer.positive_w"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NMFLayer.positive_w" title="Link to this definition"></a></dt>
+<dd><p>Positive Terms of L2 regularization against W</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.NegentropyICALayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">NegentropyICALayer</span></span><a class="reference internal" href="_modules/torchdecomp/ica.html#NegentropyICALayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NegentropyICALayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Negentropy-based Independent Component Analysis Layer</p>
+<p>Mini-batch data (x) is supposed to be used.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">NegentropyICALayer</span><span class="p">()</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">loss</span><span class="p">(</span><span class="n">x_rotated</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.NegentropyICALayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#NegentropyICALayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.NegentropyICALayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.QRLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">QRLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/qr.html#QRLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.QRLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>QR Decomposition Layer</p>
+<p>A square matrix X (n times n) is decomposed to
+the product of Q (n times n) and R (m times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.QRLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.QRLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">qr_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">QRLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.QRLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/qr.html#QRLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.QRLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.RecLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">RecLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/rec.html#RecLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.RecLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Reconstruction Matrix Layer</p>
+<p>A matrix X (n times m) is projected to
+a smaller matrix XV,
+and then reconstructed such as XVV^T,
+where the size of V is n times k (k &lt;&lt; m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.RecLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.RecLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.RecLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.RecLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rec_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RecLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.RecLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/rec.html#RecLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.RecLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.RotationLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">RotationLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#RotationLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.RotationLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Rotation Matrix Factorization Layer</p>
+<p>A matrix X (n times m) is rotated by
+a rotation matrix A such as XA (n times m).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.RotationLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.RotationLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A square matrix X (n times m)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rotation_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">RotationLayer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_rotated</span> <span class="o">=</span> <span class="n">rotation_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.RotationLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/ica.html#RotationLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.RotationLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="torchdecomp.SymRecLayer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">SymRecLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_components</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/symrec.html#SymRecLayer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.SymRecLayer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Symmetric Reconstruction Layer</p>
+<p>A symmetric matrix X (n times n) is decomposed to
+the product of Q (n times k), Lambda (k times k),
+and Q^T (k times n).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.SymRecLayer.x">
+<span class="sig-name descname"><span class="pre">x</span></span><a class="headerlink" href="#torchdecomp.SymRecLayer.x" title="Link to this definition"></a></dt>
+<dd><p>A symmetric matrix X (n times n)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="torchdecomp.SymRecLayer.n_components">
+<span class="sig-name descname"><span class="pre">n_components</span></span><a class="headerlink" href="#torchdecomp.SymRecLayer.n_components" title="Link to this definition"></a></dt>
+<dd><p>The number of lower dimensions (k)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">123456</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="c1"># Test datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">t</span><span class="p">())</span> <span class="c1"># Symmetalization</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">symrec_layer</span> <span class="o">=</span> <span class="n">td</span><span class="o">.</span><span class="n">SymRecLayer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># Instantiation</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="torchdecomp.SymRecLayer.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/symrec.html#SymRecLayer.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.SymRecLayer.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward propagation function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.create_dummy_matrix">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">create_dummy_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/helper.html#create_dummy_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.create_dummy_matrix" title="Link to this definition"></a></dt>
+<dd><p>Creates a dummy matrix from a class label vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>class_vector</strong> – A PyTorch array with numeric elements</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A PyTorch array filled with dummy vectors</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">create_dummy_matrix</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of rows is the number of classes
+and the number of columns is the number of data.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.gradNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">gradNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">WH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#gradNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.gradNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.print_named_parameters">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">print_named_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">named_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/helper.html#print_named_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.print_named_parameters" title="Link to this definition"></a></dt>
+<dd><p>Outputs the contents of the named parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>named_params</strong> – An object instantiated by user’s original class</p></li>
+<li><p><strong>nn.Module.</strong> (<em>defined from PyTorch's</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Leaf variables defined as PyTorch Tensor(s)
+set with requires_grad_(), requires_grad=True option,
+or nn.Parameter (cf. nn.Module).</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torchdecomp</span> <span class="k">as</span> <span class="nn">td</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MLPNet</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="go">        def __init__(self):</span>
+<span class="go">            super().__init__()</span>
+<span class="go">            self.fc1 = nn.Linear(1 * 28 * 28, 512)</span>
+<span class="go">            self.fc2 = nn.Linear(512, 512)</span>
+<span class="go">            self.fc3 = nn.Linear(512, 10)</span>
+<span class="go">            self.dropout1 = nn.Dropout2d(0.2)</span>
+<span class="go">            self.dropout2 = nn.Dropout2d(0.2)</span>
+<span class="go">        def forward(self, x):</span>
+<span class="go">            x = F.relu(self.fc1(x))</span>
+<span class="go">            x = self.dropout1(x)</span>
+<span class="go">            x = F.relu(self.fc2(x))</span>
+<span class="go">            x = self.dropout2(x)</span>
+<span class="go">            return F.relu(self.fc3(x))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">MLPNet</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">td</span><span class="o">.</span><span class="n">print_named_parameters</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These Tensor object(s) is/are subject to the optimization
+by gradient descent (e.g., torch.optim.SGD)</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="torchdecomp.updateNMF">
+<span class="sig-prename descclassname"><span class="pre">torchdecomp.</span></span><span class="sig-name descname"><span class="pre">updateNMF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_pos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_pos_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad_neg_h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nmf_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torchdecomp/nmf.html#updateNMF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#torchdecomp.updateNMF" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Koki Tsuyuzaki.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
