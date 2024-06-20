@@ -152,7 +152,7 @@ def gradNMF(WH, pos, neg, pos_w, neg_w, pos_h, neg_h, nmf_layer):
 
 def updateNMF(
     grad_pos, grad_neg, grad_pos_w, grad_neg_w, grad_pos_h,
-        grad_neg_h, nmf_layer, beta=2):
+        grad_neg_h, nmf_layer, beta=2, normW=True, normH=True):
     # Copy
     W = nmf_layer.W.data.detach()
     H = nmf_layer.H.data.detach()
@@ -164,6 +164,8 @@ def updateNMF(
         (torch.mm(W.T, grad_neg) + grad_neg_h) /
         (torch.mm(W.T, grad_pos) + grad_pos_h))**_rho(beta=beta)
     # Normalization
-    W = torch.nn.functional.normalize(W, dim=0)
-    H = torch.nn.functional.normalize(H, dim=1)
+    if normW:
+        W = torch.nn.functional.normalize(W, dim=0)
+    if normH:
+        H = torch.nn.functional.normalize(H, dim=1)
     return W, H
